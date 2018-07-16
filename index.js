@@ -1,11 +1,19 @@
 const express = require('express');
 
 const app = express();
+const requestIp = require('request-ip');
 
+// middleware to hanlde request IP
+app.use(requestIp.mw());
+// app.use((req, res) => {
+//     const ip = req.clientIp;
+//     res.end(ip);
+// });
 // if not timestamp is provided use the time of right now
 app.get('/api/whoami', (req, res) => {
-    const date = new Date();
-    console.log(req.headers);
+    var ip = req.clientIp;
+    console.log(ip);
+
     res.json({
         ipaddress: req.ip,
         language: 'en-US,en;q=0.5',
